@@ -1,0 +1,20 @@
+stages:
+   - tests
+
+build:
+  stage: tests
+  script:    
+    - apt-get update
+    - apt-get install -y php-sqlite3
+    - apt-get install -y php-cli php-curl
+    - apt-get install -y php-cli php-dom
+    - php -v
+    - apt-get install curl php-cli php-mbstring git unzip -y
+    - curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+    - composer --version
+    - cd conduit-backend-tests
+    - composer install
+    - cp .env.example .env
+    - ./vendor/bin/phpunit --version
+    - ./vendor/bin/phpunit
+#php artisan test
